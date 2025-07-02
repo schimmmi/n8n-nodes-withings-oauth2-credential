@@ -4,13 +4,13 @@
 >
 > https://github.com/umanamente/n8n-nodes-globals
 >
-> _At the time of creation of `n8n-nodes-global-variables`, `n8n-nodes-globals` didn't support JSON variables._  
+> _At the time of creation of `n8n-nodes-withings-oauth2-credential`, `n8n-nodes-globals` didn't support JSON variables._  
 > _And even still I enjoy being able to organize my variables into multiple named variables._  
 > _Personal preference!_
 
 <img src="screenshots/workflow-canvas.png" width="500" />
 
-# Install `n8n-nodes-global-variables`
+# Install `n8n-nodes-withings-oauth2-credential`
 
 > Requires self-hosted n8n
 

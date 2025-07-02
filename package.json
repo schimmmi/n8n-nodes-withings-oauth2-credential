@@ -1,19 +1,19 @@
 {
-	"name": "n8n-nodes-global-variables",
+	"name": "n8n-nodes-withings-oauth2-credential",
 	"version": "0.5.0",
-	"description": "Global Variables node for n8n",
+	"description": "n8n Support for Withings API (uses non-standard OAuth2)",
 	"keywords": [
 		"n8n-community-node-package"
 	],
 	"license": "MIT",
-	"homepage": "https://github.com/mrowrpurr/n8n-nodes-global-variables",
+	"homepage": "https://github.com/mrowrpurr/n8n-nodes-withings-oauth2-credential",
 	"author": {
 		"name": "Mrowr Purr",
 		"email": "mrowr.purr@gmail.com"
 	},
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/mrowrpurr/n8n-nodes-global-variables.git"
+		"url": "https://github.com/mrowrpurr/n8n-nodes-withings-oauth2-credential.git"
 	},
 	"engines": {
 		"node": ">=20.15"
