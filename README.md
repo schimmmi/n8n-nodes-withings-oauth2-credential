@@ -7,22 +7,21 @@ This package provides n8n credentials and nodes to work with the Withings API, w
 ## What's Included
 
 ### WithingsOAuth2Api Credential
-A standard OAuth2 credential that can be used with HTTP Request nodes for making authenticated API calls to Withings endpoints.
+A standard OAuth2 credential that handles the authorization flow and stores your client credentials.
 
 ### Withings Access Token Node
 A simple single-purpose node that gets you access tokens from Withings OAuth2 callbacks.
 
 **What it does:**
+- Uses your Withings OAuth2 credential
 - Takes your callback URL from Withings authorization
 - Automatically extracts the authorization code
 - Exchanges it for access tokens with the required `action=requesttoken` parameter
 - Outputs working access tokens
 
 **Inputs:**
-- Client ID
-- Client Secret  
+- Withings OAuth2 credential (contains Client ID, Client Secret, Redirect URI)
 - Callback URL (the full URL you get redirected to after authorization)
-- Redirect URI
 
 **Output:**
 - Access token (ready to use)
@@ -35,17 +34,19 @@ A simple single-purpose node that gets you access tokens from Withings OAuth2 ca
 
 ## Simple Usage
 
-1. **Get authorization URL**: Visit `https://account.withings.com/oauth2_user/authorize2?response_type=code&client_id=YOUR_CLIENT_ID&redirect_uri=YOUR_REDIRECT_URI&scope=user.info,user.metrics,user.activity`
+1. **Set up credential**: Create a new Withings OAuth2 API credential with your Client ID, Client Secret, and Redirect URI
 
-2. **Authorize**: User visits the URL and authorizes your application
+2. **Get authorization URL**: Visit `https://account.withings.com/oauth2_user/authorize2?response_type=code&client_id=YOUR_CLIENT_ID&redirect_uri=YOUR_REDIRECT_URI&scope=user.info,user.metrics,user.activity`
 
-3. **Copy callback URL**: Copy the full URL you get redirected to (contains the authorization code)
+3. **Authorize**: User visits the URL and authorizes your application
 
-4. **Run the node**: Use the Withings Access Token node with your callback URL
+4. **Copy callback URL**: Copy the full URL you get redirected to (contains the authorization code)
 
-5. **Get tokens**: Node outputs working access tokens
+5. **Run the node**: Use the Withings Access Token node with your credential and callback URL
 
-6. **Make API calls**: Use the access token with HTTP Request nodes
+6. **Get tokens**: Node outputs working access tokens
+
+7. **Make API calls**: Use the access token with HTTP Request nodes
 
 ## Why This Package Exists
 

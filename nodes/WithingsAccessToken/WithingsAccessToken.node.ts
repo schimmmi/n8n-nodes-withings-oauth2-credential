@@ -7,32 +7,19 @@ export class WithingsAccessToken implements INodeType {
 		icon: "file:withings.svg",
 		group: ["transform"],
 		version: 1,
-		description: "Get Withings access token from callback URL",
+		description: "Get Withings access token using OAuth2 credential",
 		defaults: {
 			name: "Withings Access Token",
 		},
 		inputs: [NodeConnectionType.Main],
 		outputs: [NodeConnectionType.Main],
+		credentials: [
+			{
+				name: "withingsOAuth2Api",
+				required: true,
+			},
+		],
 		properties: [
-			{
-				displayName: "Client ID",
-				name: "clientId",
-				type: "string",
-				required: true,
-				default: "",
-				description: "Your Withings Client ID",
-			},
-			{
-				displayName: "Client Secret",
-				name: "clientSecret",
-				type: "string",
-				typeOptions: {
-					password: true,
-				},
-				required: true,
-				default: "",
-				description: "Your Withings Client Secret",
-			},
 			{
 				displayName: "Callback URL",
 				name: "callbackUrl",
@@ -40,14 +27,6 @@ export class WithingsAccessToken implements INodeType {
 				required: true,
 				default: "",
 				description: "The full callback URL from Withings authorization (contains the code parameter)",
-			},
-			{
-				displayName: "Redirect URI",
-				name: "redirectUri",
-				type: "string",
-				required: true,
-				default: "http://localhost:8080/callback",
-				description: "The redirect URI used in authorization",
 			},
 		],
 	}
@@ -58,10 +37,12 @@ export class WithingsAccessToken implements INodeType {
 
 		for (let i = 0; i < items.length; i++) {
 			try {
-				const clientId = this.getNodeParameter("clientId", i) as string
-				const clientSecret = this.getNodeParameter("clientSecret", i) as string
+				const credentials = await this.getCredentials("withingsOAuth2Api")
 				const callbackUrl = this.getNodeParameter("callbackUrl", i) as string
-				const redirectUri = this.getNodeParameter("redirectUri", i) as string
+
+				const clientId = credentials.clientId as string
+				const clientSecret = credentials.clientSecret as string
+				const redirectUri = credentials.redirectUri as string
 
 				// Extract authorization code from callback URL
 				const codeMatch = callbackUrl.match(/[?&]code=([^&]+)/)

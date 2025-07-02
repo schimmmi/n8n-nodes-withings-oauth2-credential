@@ -1,6 +1,6 @@
 {
 	"name": "n8n-nodes-withings-oauth2-credential",
-	"version": "0.5.3",
+	"version": "0.5.4",
 	"description": "n8n Support for Withings API (uses non-standard OAuth2)",
 	"keywords": [
 		"n8n-community-node-package"

@@ -7,7 +7,6 @@ export class WithingsOAuth2Api implements ICredentialType {
 	description = "OAuth2 authentication for Withings API"
 	documentationUrl = "https://developer.withings.com/api-reference/#section/Authentication"
 	icon: Icon = "file:withings.svg"
-	genericAuth = true
 
 	properties: INodeProperties[] = [
 		{
@@ -53,14 +52,6 @@ export class WithingsOAuth2Api implements ICredentialType {
 			type: "string",
 			default: "user.info,user.metrics,user.activity",
 			description: "Comma-separated list of scopes. Common scopes: user.info, user.metrics, user.activity, user.sleepevents",
-		},
-		{
-			displayName: "Important Note",
-			name: "notice",
-			type: "notice",
-			default: "",
-			description:
-				'This credential handles authorization but token exchange will fail due to Withings requiring action=requesttoken. Use the "Withings Access Token" node to complete the OAuth2 flow.',
 		},
 	]
 }
