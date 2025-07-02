@@ -68,7 +68,7 @@ export class WithingsAccessToken implements INodeType {
 
 				const response = await this.helpers.httpRequest({
 					method: "POST",
-					url: "https://wbsapi.withings.com/v2/oauth2",
+					url: "https://wbsapi.withings.net/v2/oauth2",
 					headers: {
 						"Content-Type": "application/x-www-form-urlencoded",
 					},

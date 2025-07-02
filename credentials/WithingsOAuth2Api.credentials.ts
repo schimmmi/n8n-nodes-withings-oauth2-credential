@@ -25,7 +25,7 @@ export class WithingsOAuth2Api implements ICredentialType {
 			displayName: "Access Token URL",
 			name: "accessTokenUrl",
 			type: "hidden",
-			default: "https://wbsapi.withings.com/v2/oauth2",
+			default: "https://wbsapi.withings.net/v2/oauth2",
 		},
 		{
 			displayName: "Client ID",
