@@ -33,12 +33,9 @@
 	"n8n": {
 		"n8nNodesApiVersion": 1,
 		"credentials": [
-			"dist/credentials/GlobalVariablesCredentials.credentials.js",
-			"dist/credentials/WithingsOAuth2Api.credentials.js",
-			"dist/credentials/WithingsBearerTokenApi.credentials.js"
+			"dist/credentials/WithingsOAuth2Api.credentials.js"
 		],
 		"nodes": [
-			"dist/nodes/GlobalVariables/GlobalVariables.node.js",
 			"dist/nodes/WithingsAccessToken/WithingsAccessToken.node.js"
 		]
 	},
