@@ -1,6 +1,6 @@
 {
 	"name": "n8n-nodes-withings-oauth2-credential",
-	"version": "0.5.9",
+	"version": "0.5.10",
 	"description": "n8n Support for Withings API (uses non-standard OAuth2)",
 	"keywords": [
 		"n8n-community-node-package"
@@ -23,8 +23,8 @@
 		"build": "pnpx rimraf dist && tsc && gulp build:icons",
 		"dev": "tsc --watch",
 		"format": "prettier nodes credentials --write",
-		"lint": "eslint credentials package.json",
-		"lintfix": "eslint credentials package.json --fix",
+		"lint": "eslint nodes credentials package.json",
+		"lintfix": "eslint nodes credentials package.json --fix",
 		"prepublishOnly": "npm run build && npm run lint -c .eslintrc.prepublish.js credentials package.json"
 	},
 	"files": [
@@ -35,7 +35,9 @@
 		"credentials": [
 			"dist/credentials/WithingsOAuth2Api.credentials.js"
 		],
-		"nodes": []
+		"nodes": [
+			"dist/nodes/WithingsDummy/WithingsDummy.node.js"
+		]
 	},
 	"devDependencies": {
 		"@typescript-eslint/parser": "~8.32.0",

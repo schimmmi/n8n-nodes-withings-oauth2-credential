@@ -7,6 +7,7 @@ A community node package for n8n that provides OAuth2 authentication for the Wit
 - **Custom OAuth2 Credential**: Handles Withings' non-standard OAuth2 implementation that requires `action=requesttoken` during token exchange
 - **Automatic Token Management**: n8n handles authorization, token exchange, storage, and refresh automatically
 - **Clean Integration**: Use with HTTP Request nodes or any custom Withings nodes
+- **Dummy Node Included**: Contains a minimal dummy node to satisfy n8n package requirements (use HTTP Request nodes instead)
 
 ## Installation
 
@@ -45,7 +46,7 @@ npm install n8n-nodes-withings-oauth2-credential
 
 ## Usage
 
-### With HTTP Request Node
+### With HTTP Request Node (Recommended)
 
 1. Add an **HTTP Request** node to your workflow
 2. Set **Authentication** to "Predefined Credential Type"
@@ -55,6 +56,10 @@ npm install n8n-nodes-withings-oauth2-credential
    - **Method**: POST
    - **URL**: `https://wbsapi.withings.net/v2/user`
    - **Body**: `action=getbyuserid` (or other Withings API actions)
+
+### Dummy Node
+
+This package includes a "Withings Dummy" node to satisfy n8n's package requirements, but it's recommended to use HTTP Request nodes instead for actual API calls.
 
 ### Example API Calls
 
