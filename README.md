@@ -10,28 +10,46 @@ This package provides n8n credentials and nodes to work with the Withings API, w
 A standard OAuth2 credential that can be used with HTTP Request nodes for making authenticated API calls to Withings endpoints.
 
 ### Withings Access Token Node
-A simple 2-step OAuth2 flow handler that gets you access tokens without the manual hassle.
+A simple single-purpose node that gets you access tokens from Withings OAuth2 callbacks.
 
-#### Operation 1: Get Authorization URL
-- **Inputs**: Client ID, Client Secret, Redirect URI, Scopes
-- **Output**: Authorization URL with clear instructions
-- **What it does**: Generates the Withings authorization URL for you to visit
+**What it does:**
+- Takes your callback URL from Withings authorization
+- Automatically extracts the authorization code
+- Exchanges it for access tokens with the required `action=requesttoken` parameter
+- Outputs working access tokens
 
-#### Operation 2: Get Access Token  
-- **Inputs**: Client ID, Client Secret, Redirect URI, Callback URL (the full URL you get redirected to)
-- **Output**: Access token, refresh token, user ID, and all OAuth2 data
-- **What it does**: Automatically extracts the authorization code from your callback URL and exchanges it for tokens with the required `action=requesttoken` parameter
+**Inputs:**
+- Client ID
+- Client Secret  
+- Callback URL (the full URL you get redirected to after authorization)
+- Redirect URI
 
-## Simple Usage Workflow
+**Output:**
+- Access token (ready to use)
+- Refresh token
+- Token type
+- Expires in
+- Scope
+- User ID
+- CSRF token
 
-1. **Step 1**: Use "Get Authorization URL" operation → Get the authorization URL
-2. **Step 2**: Visit the URL → Authorize your application → Copy the full callback URL
-3. **Step 3**: Use "Get Access Token" operation → Paste the callback URL → Get your tokens
-4. **Step 4**: Use the access token with WithingsOAuth2Api credential in HTTP Request nodes
+## Simple Usage
+
+1. **Get authorization URL**: Visit `https://account.withings.com/oauth2_user/authorize2?response_type=code&client_id=YOUR_CLIENT_ID&redirect_uri=YOUR_REDIRECT_URI&scope=user.info,user.metrics,user.activity`
+
+2. **Authorize**: User visits the URL and authorizes your application
+
+3. **Copy callback URL**: Copy the full URL you get redirected to (contains the authorization code)
+
+4. **Run the node**: Use the Withings Access Token node with your callback URL
+
+5. **Get tokens**: Node outputs working access tokens
+
+6. **Make API calls**: Use the access token with HTTP Request nodes
 
 ## Why This Package Exists
 
-The Withings API uses a non-standard OAuth2 implementation that requires an `action=requesttoken` parameter in token exchange requests. n8n's built-in OAuth2 system doesn't support this custom parameter, so this package provides the necessary workaround while keeping the user experience as simple as possible.
+The Withings API uses a non-standard OAuth2 implementation that requires an `action=requesttoken` parameter in token exchange requests. n8n's built-in OAuth2 system doesn't support this custom parameter, so this package provides the necessary workaround.
 
 ## Installation
 
