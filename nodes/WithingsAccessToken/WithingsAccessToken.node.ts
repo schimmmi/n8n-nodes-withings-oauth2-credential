@@ -22,6 +22,12 @@ export class WithingsAccessToken implements INodeType {
 				noDataExpression: true,
 				options: [
 					{
+						name: "Generate Authorization URL",
+						value: "generateAuthUrl",
+						description: "Generate the authorization URL for OAuth2 flow",
+						action: "Generate authorization url for o auth2 flow",
+					},
+					{
 						name: "Exchange Authorization Code",
 						value: "exchangeCode",
 						description: "Exchange authorization code for access token",
@@ -34,7 +40,7 @@ export class WithingsAccessToken implements INodeType {
 						action: "Refresh an expired access token",
 					},
 				],
-				default: "exchangeCode",
+				default: "generateAuthUrl",
 			},
 			{
 				displayName: "Client ID",
@@ -56,6 +62,43 @@ export class WithingsAccessToken implements INodeType {
 				description: "Your Withings Client Secret",
 			},
 			{
+				displayName: "Redirect URI",
+				name: "redirectUri",
+				type: "string",
+				required: true,
+				displayOptions: {
+					show: {
+						operation: ["generateAuthUrl", "exchangeCode"],
+					},
+				},
+				default: "",
+				description: "The redirect URI for OAuth2 authorization",
+			},
+			{
+				displayName: "Scopes",
+				name: "scopes",
+				type: "string",
+				displayOptions: {
+					show: {
+						operation: ["generateAuthUrl"],
+					},
+				},
+				default: "user.info,user.metrics,user.activity",
+				description: "Comma-separated list of scopes to request (e.g., user.info,user.metrics,user.activity)",
+			},
+			{
+				displayName: "State",
+				name: "state",
+				type: "string",
+				displayOptions: {
+					show: {
+						operation: ["generateAuthUrl"],
+					},
+				},
+				default: "",
+				description: "Optional state parameter for CSRF protection",
+			},
+			{
 				displayName: "Authorization Code",
 				name: "authorizationCode",
 				type: "string",
@@ -67,19 +110,6 @@ export class WithingsAccessToken implements INodeType {
 				},
 				default: "",
 				description: "The authorization code received from Withings OAuth2 callback",
-			},
-			{
-				displayName: "Redirect URI",
-				name: "redirectUri",
-				type: "string",
-				required: true,
-				displayOptions: {
-					show: {
-						operation: ["exchangeCode"],
-					},
-				},
-				default: "",
-				description: "The redirect URI used in the OAuth2 authorization request",
 			},
 			{
 				displayName: "Refresh Token",
@@ -112,7 +142,37 @@ export class WithingsAccessToken implements INodeType {
 
 				let responseData: any = {}
 
-				if (operation === "exchangeCode") {
+				if (operation === "generateAuthUrl") {
+					const redirectUri = this.getNodeParameter("redirectUri", i) as string
+					const scopes = this.getNodeParameter("scopes", i) as string
+					const state = this.getNodeParameter("state", i) as string
+
+					// Build authorization URL
+					const authParams = [
+						`response_type=code`,
+						`client_id=${encodeURIComponent(clientId)}`,
+						`redirect_uri=${encodeURIComponent(redirectUri)}`,
+						`scope=${encodeURIComponent(scopes || "user.info,user.metrics,user.activity")}`,
+					]
+
+					if (state) {
+						authParams.push(`state=${encodeURIComponent(state)}`)
+					}
+
+					const authorizationUrl = `https://account.withings.com/oauth2_user/authorize2?${authParams.join("&")}`
+
+					responseData = {
+						success: true,
+						operation: "generateAuthUrl",
+						authorization_url: authorizationUrl,
+						client_id: clientId,
+						redirect_uri: redirectUri,
+						scopes: scopes || "user.info,user.metrics,user.activity",
+						state: state || null,
+						instructions:
+							"Visit the authorization_url, authorize the application, and copy the 'code' parameter from the callback URL to use in the 'Exchange Authorization Code' operation.",
+					}
+				} else if (operation === "exchangeCode") {
 					const authorizationCode = this.getNodeParameter("authorizationCode", i) as string
 					const redirectUri = this.getNodeParameter("redirectUri", i) as string
 
