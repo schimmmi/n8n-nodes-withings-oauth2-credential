@@ -1,8 +1,64 @@
-node_modules
-.DS_Store
-.tmp
-tmp
-dist
+# Dependency directories
+node_modules/
+jspm_packages/
+
+# Build outputs
+dist/
+build/
+lib/
+.tmp/
+tmp/
+
+# Logs
+logs
+*.log
 npm-debug.log*
-yarn.lock
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# OS specific files
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Editor directories and files
+.idea/
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/extensions.json
 .vscode/launch.json
+*.sublime-workspace
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# TypeScript cache
+*.tsbuildinfo
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# dotenv environment variables file
+.env
+.env.test
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Package files
+yarn.lock
+package-lock.json
+pnpm-lock.yaml
+
+# Coverage directory used by tools like istanbul
+coverage/
+*.lcov

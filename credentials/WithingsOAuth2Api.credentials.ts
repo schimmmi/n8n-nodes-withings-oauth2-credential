@@ -6,7 +6,7 @@ export class WithingsOAuth2Api implements ICredentialType {
 	description = "OAuth2 authentication for Withings API with custom token exchange"
 	documentationUrl = "https://developer.withings.com/api-reference/#section/Authentication"
 	icon: Icon = "file:withings.svg"
-	extends = ["genericAuth"]
+	extends = ["genericOAuth2Api"]
 
 	properties: INodeProperties[] = [
 		{

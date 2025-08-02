@@ -79,13 +79,13 @@ Body: action=getmeas&startdate=1609459200&enddate=1640995200
 
 Withings uses a non-standard OAuth2 implementation that requires an additional `action=requesttoken` parameter during token exchange. This credential:
 
-1. **Extends n8n's genericAuth**: Provides full control over the token exchange process
+1. **Extends n8n's genericOAuth2Api**: Provides the "Connect my account" button and handles the OAuth2 flow
 2. **Injects Required Parameter**: Automatically adds `action=requesttoken` to token requests
 3. **Handles Standard Flow**: Authorization URL, redirect, and token storage work normally
 
 ## Technical Details
 
-- **Credential Type**: `genericAuth` with custom `authenticate()` method
+- **Credential Type**: `genericOAuth2Api` with custom `authenticate()` method
 - **Authorization URL**: `https://account.withings.com/oauth2_user/authorize2`
 - **Token URL**: `https://wbsapi.withings.net/v2/oauth2`
 - **Required Parameter**: `action=requesttoken` (automatically injected)
